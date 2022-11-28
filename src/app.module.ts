@@ -14,18 +14,20 @@ import { UsersModule } from './users/users.module';
       envFilePath: ['.env'],
       isGlobal: true,
     }),
-    // TypeOrmModule.forRoot({
-    //   type: 'postgres',
-    //   host: 'localhost',
-    //   port: 5432,
-    //   username: 'postgres',
-    //   password: 'root',
-    //   database: 'task-management-v2',
-    //   // autoLoadEntities: true,
-    //   synchronize: true, // disable in PROD env
-    //   entities: [Task]
-    // }),
     TypeOrmModule.forRoot({
+      name: 'postgres',   /** Default db connection => dataSource. No need to use the decorator @InjectDataSource */
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: 'root',
+      database: 'task-management-v2',
+      // autoLoadEntities: true,
+      synchronize: true, // disable in PROD env
+      entities: [Task]
+    }),
+    TypeOrmModule.forRoot({
+      name: 'mongodb',
       type: 'mongodb',
       host: '127.0.0.1',
       port: +27017,
@@ -36,7 +38,7 @@ import { UsersModule } from './users/users.module';
       synchronize: true, // disable in PROD env
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      entities: [User]
+      entities: [User],
     }),
     TasksModule,
     UsersModule,

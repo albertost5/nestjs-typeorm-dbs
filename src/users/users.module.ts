@@ -6,7 +6,7 @@ import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User])],
+  imports: [TypeOrmModule.forFeature([User], 'mongodb')],
   controllers: [UsersController],
   providers: [UsersService, UserRepository]
 })
