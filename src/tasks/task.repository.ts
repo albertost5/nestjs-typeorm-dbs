@@ -6,9 +6,9 @@ import { Task } from "./task.entity";
 
 @Injectable()
 export class TaskRepository extends Repository<Task> {
-
+    
     constructor(private readonly dataSource: DataSource) {
-        super(Task, dataSource.createEntityManager());
+        super(Task, dataSource.createEntityManager(), dataSource.createQueryRunner());
     }
 
     async findTasks(): Promise<Task[]> {

@@ -10,7 +10,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UserRepository extends MongoRepository<User> {
 
     constructor(
-        @InjectRepository(User)
+        @InjectRepository(User, 'mongo')
         private readonly userRepository: MongoRepository<User>
     ) {
         super(userRepository.target, userRepository.manager, userRepository.queryRunner);
