@@ -6,7 +6,7 @@ import { TasksController } from './tasks.controller';
 import { TasksService } from './tasks.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Task])],
+  imports: [TypeOrmModule.forFeature([Task], 'postgres')],
   controllers: [TasksController],
   providers: [TasksService, TaskRepository]
 })

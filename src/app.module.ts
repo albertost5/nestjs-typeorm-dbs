@@ -15,7 +15,7 @@ import { UsersModule } from './users/users.module';
       isGlobal: true,
     }),
     TypeOrmModule.forRoot({
-      // name: 'postgres',
+      name: 'postgres',
       type: 'postgres',
       host: 'localhost',
       port: 5432,
