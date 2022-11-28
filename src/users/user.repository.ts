@@ -10,7 +10,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UserRepository extends MongoRepository<User> {
 
     constructor(
-        @InjectRepository(User, 'mongodb')
+        @InjectRepository(User)
         private readonly userRepository: MongoRepository<User>
     ) {
         super(userRepository.target, userRepository.manager, userRepository.queryRunner);
@@ -20,7 +20,7 @@ export class UserRepository extends MongoRepository<User> {
         const { username, password, email } = createUserDto;
         const user = new User(username, password, email);
         try {
-            await this.save(user);
+            await this.userRepository.save(user);
         } catch (error) {
             throw new BadRequestException('There was an error creating the user');
         }
@@ -29,7 +29,7 @@ export class UserRepository extends MongoRepository<User> {
 
     async findUsers(): Promise<User[]> {
         try {
-            return await this.find();
+            return await this.userRepository.find();
         } catch (error) {
             console.log('error', error);
             throw new BadRequestException('There was an error getting all the users.');
@@ -40,7 +40,7 @@ export class UserRepository extends MongoRepository<User> {
         let userFound;
         
         try {
-            userFound = await this.findOne({
+            userFound = await this.userRepository.findOne({
                 where: {
                     _id: new ObjectID(id)
                 } as any
@@ -61,7 +61,7 @@ export class UserRepository extends MongoRepository<User> {
 
         try {
             user.password = password;
-            await this.save(user);
+            await this.userRepository.save(user);
             return user;
         } catch (error) {
             throw new BadRequestException('There was an error updating the user.');
@@ -71,7 +71,7 @@ export class UserRepository extends MongoRepository<User> {
     async deleteUser(id: string): Promise<object> {
         const user = await this.findById(id);
         try {
-            await this.delete(user);
+            await this.userRepository.delete(user);
             return {
                 message: 'User deleted successfully!'
             }

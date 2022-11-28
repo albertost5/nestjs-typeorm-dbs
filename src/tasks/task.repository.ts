@@ -1,5 +1,4 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
-import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
 import { DataSource, Repository } from "typeorm";
 import { CreateTaskDto } from "./dto/create-task.dto";
 import { UpdateTaskStatusDto } from "./dto/updata-task-status.dto";
@@ -7,16 +6,9 @@ import { Task } from "./task.entity";
 
 @Injectable()
 export class TaskRepository extends Repository<Task> {
-    
-    constructor(
-        // @InjectRepository(Task, 'postgres')
-        // private readonly taskRepository: Repository<Task>
-        // private readonly dataSource: DataSource,
-        @InjectDataSource('postgres')
-        private readonly dataSource: DataSource
-    ) {
-        super(Task, dataSource.createEntityManager(), dataSource.createQueryRunner());
-        // super(taskRepository.target, taskRepository.manager ,taskRepository.queryRunner);
+
+    constructor(private readonly dataSource: DataSource) {
+        super(Task, dataSource.createEntityManager());
     }
 
     async findTasks(): Promise<Task[]> {
