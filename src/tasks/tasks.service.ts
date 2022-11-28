@@ -13,19 +13,19 @@ export class TasksService {
         return await this.taskRepository.findTasks();
     }
 
-    create(createTaskDto: CreateTaskDto): Promise<Task>{
-        return this.taskRepository.createTask(createTaskDto);
+    async create(createTaskDto: CreateTaskDto): Promise<Task>{
+        return await this.taskRepository.createTask(createTaskDto);
     }
 
-    findById(taskId: string): Promise<Task> {
-        return this.taskRepository.findById(taskId);
+    async findById(taskId: string): Promise<Task> {
+        return await this.taskRepository.findById(taskId);
     }
 
-    update(id: string, updateTaskStatusDto: UpdateTaskStatusDto): Promise<Task> {
-        return this.taskRepository.updateTask(id, updateTaskStatusDto);
+    async update(id: string, updateTaskStatusDto: UpdateTaskStatusDto): Promise<Task> {
+        return await this.taskRepository.updateTask(id, updateTaskStatusDto);
     }
 
-    delete(taskId: string): Promise<object> {
-        return this.taskRepository.deleteTask(taskId);
+    async delete(taskId: string): Promise<object> {
+        return await this.taskRepository.deleteTask(taskId);
     }
 }

@@ -1,4 +1,4 @@
-import { Entity, ObjectID, ObjectIdColumn, Column } from "typeorm"
+import { Entity, ObjectID, ObjectIdColumn, Column, UpdateDateColumn, CreateDateColumn } from "typeorm"
 
 @Entity()
 export class User {
@@ -13,6 +13,12 @@ export class User {
 
     @Column({unique: true})
     email: string;
+
+    @CreateDateColumn()
+    createdAt: Date;
+
+    @UpdateDateColumn()
+    updatedAt: Date;
 
     constructor(username: string, password: string, email: string) {
         this.username = username;
